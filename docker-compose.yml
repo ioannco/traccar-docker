@@ -3,12 +3,12 @@ services:
   traccar:
     image: traccar/traccar:latest
     ports:
-      - 5000-5150:5000-5150
-      - 8082:8082
+      - "5001-5250:5001-5250"
+      - "8082:8082"
     depends_on:
       - traccar-db
     volumes:
-      - ./traccar.xml:${TRACCAR_CONFIG_PATH}
+      - "${TRACCAR_CONFIG_PATH}:/opt/traccar/conf/traccar.xml"
     environment:
       POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_USER: "${POSTGRES_USER}"
@@ -19,8 +19,6 @@ services:
       POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-    ports:
-      - "5432:5432"
 volumes:
   db-data:
   
