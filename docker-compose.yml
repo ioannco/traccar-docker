@@ -1,14 +1,16 @@
 version: "3.9"
 services:
   traccar:
-    image: traccar/traccar:latest
+    build: ./traccar
     ports:
       - "5001-5250:5001-5250"
       - "8082:8082"
+      - "9000-9020:9000-9020"
     depends_on:
       - traccar-db
     volumes:
-      - "${TRACCAR_CONFIG_PATH}:/opt/traccar/conf/traccar.xml"
+      - "${PROJECT_PATH}/conf/traccar.xml:/opt/traccar/conf/traccar.xml"
+      - "${PROJECT_PATH}/traccar/:/home/gradle/src/"
     environment:
       POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_USER: "${POSTGRES_USER}"
